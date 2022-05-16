@@ -35,7 +35,7 @@
                 {{ task.name }}
               </span>
             </th>
-            <td style="width: 100px">
+            <td class="POINT" style="width: 100px">
               <span
                 :class="{
                   'text-danger': task.status === 'to-do',
@@ -48,12 +48,12 @@
               >
             </td>
             <td>
-              <div @click="editTask(index)">
+              <div class="POINT" @click="editTask(index)">
                 <i class="bi bi-pencil-square"></i>
               </div>
             </td>
             <td>
-              <div @click="deleteTask(index)">
+              <div class="POINT" @click="deleteTask(index)">
                 <i class="bi bi-trash-fill"></i>
               </div>
             </td>
@@ -111,7 +111,7 @@ export default {
       } else {
         this.tasks.push({
           name: this.task,
-          status: "todo",
+          status: "To-do",
         });
       }
 
