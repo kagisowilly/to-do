@@ -1,24 +1,25 @@
 <template>
+<section>
   <div class="container">
-    <div class="pt-5 text-center">
-      <h2 class="text-center">TO-DO LIST</h2>
+    <div class="pt-3 text-center">
+      <h2 class="text-center text-white">TO-DO LIST</h2>
       <!-- INPUT -->
-      <div class="d-flex">
+      <div class="d-flex mt-5">
         <input
           v-model="task"
           type="text"
           placeholder="Enter task"
-          class="rounded w-100"
+          class=" border-bottom w-100"
         />
 
-        <span @click="submitTask" class="border circle"><i style="font-size:30px;" class="bi text-success bi-plus-lg"></i></span>
+        <span @click="submitTask" class="POINT"><i style="font-size:30px; height:100%;" class="bi text-white submitt bi-plus-lg"></i></span>
 
       </div>
 
       <!-- TASK TABLE -->
       <table class="table mt-5">
         <thead>
-          <tr>
+          <tr class="text-white">
             <th>#</th>
             <th scope="col">Task</th>
             <th scope="col">Status</th>
@@ -27,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(task, index) in tasks" :key="index">
+          <tr class="text-white" v-for="(task, index) in tasks" :key="index">
             <th scope="row">{{ index }}</th>
             <th scope="row">
               <span :class="{ Done: task.status === 'Done' }">
@@ -60,7 +61,9 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </div>  
+</section>
+
 </template>
 
 <script>
@@ -134,6 +137,36 @@ export default {
 </script>
 
 <style scoped>
+section{
+  height: 100vh;
+  margin-top: 0;
+  background-image: url('https://images.unsplash.com/photo-1509773896068-7fd415d91e2e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80');
+  background-repeat: no-repeat;
+  background-size: cover !important;
+  background-image: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2)
+    ),
+    url('https://images.unsplash.com/photo-1509773896068-7fd415d91e2e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80');
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-position: 70%;
+}
+.POINT{
+  cursor: pointer;
+}
+.submitt{
+  background-color: darkgreen;
+}
+.submitt:hover{
+  background-color: rgb(0, 255, 0) !important;
+}
+input{
+  border: none;
+  background-color: transparent;
+  color: white;
+}
 .Done {
   text-decoration: line-through;
 }
