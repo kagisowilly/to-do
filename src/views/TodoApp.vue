@@ -2,7 +2,7 @@
 <section>
   <div class="container">
     <div class="pt-3 text-center">
-      <h2 class="text-center text-white">TO-DO LIST</h2>
+      <h2 class="text-center">TO-DO LIST</h2>
       <!-- INPUT -->
       <div class="d-flex mt-5">
         <input
@@ -23,13 +23,13 @@
             <th>#</th>
             <th scope="col">Task</th>
             <th scope="col">Status</th>
-            <th scope="col">Edit</th>
+            <!-- <th scope="col">Edit</th> -->
             <th scope="col">Delete</th>
           </tr>
         </thead>
         <tbody>
           <tr class="text-white" v-for="(task, index) in tasks" :key="index">
-            <th scope="row">{{ index }}</th>
+            <th scope="row">{{ index + 1 }}</th>
             <th scope="row">
               <span :class="{ Done: task.status === 'Done' }">
                 {{ task.name }}
@@ -39,19 +39,19 @@
               <span
                 :class="{
                   'text-danger': task.status === 'to-do',
-                  'text-success': task.status === 'Done',
-                  'text-warning': task.status === 'Under-way',
+                  'bg-success': task.status === 'Done',
+                  'bg-warning': task.status === 'Under-way',
                 }"
                 class="click"
                 @click="changeStatus(index)"
                 >{{ task.status }}</span
               >
             </td>
-            <td>
+            <!-- <td>
               <div class="POINT" @click="editTask(index)">
                 <i class="bi bi-pencil-square"></i>
               </div>
-            </td>
+            </td> -->
             <td>
               <div class="POINT" @click="deleteTask(index)">
                 <i class="bi bi-trash-fill"></i>
@@ -75,30 +75,11 @@ export default {
       task: "",
       editedTask: null,
       statuses: ["To-do", "Under-way", "Done"],
-      tasks: [
-        {
-          name: "Study",
-          status:""
-
-        },
-        {
-          name:"dishes",
-          status:""
-        },
-        {
-          name:"test",
-          status:""
-        },
-                {
-          name:"reading a book",
-          status:""
-        },
-
-      ],
+      tasks: [],
     };
   },
     created() {
-    this.tasks = JSON.parse(localStorage.getItem(this.local_storage) || "[]");
+    this.tasks = JSON.parse(localStorage.getItem("tasks")  || "[]");
     console.log(this.tasks);
   },
   methods: {
@@ -107,25 +88,32 @@ export default {
 
       if (this.editedTask != null) {
         this.tasks[this.editedTask].name = this.task;
+
         this.editedTask = null;
       } else {
         this.tasks.push({
           name: this.task,
           status: "To-do",
         });
+        localStorage.setItem("tasks", JSON.stringify(this.tasks));
+        this.task = "";
       }
 
-      this.task = "";
+       
     },
     deleteTask(index) {
-      this.tasks.splice(index, 1);
-      localStorage.setItem(local_storage, JSON.stringify(this.tasks));
+      this.tasks.splice(index,1);
+      localStorage.setItem("tasks", JSON.stringify(this.tasks));
     },
-    editTask(index) {
-      this.task = this.tasks[index].name;
-      this.editedTask = index;
-      localStorage.setItem(local_storage, JSON.stringify(this.tasks));
-    },
+
+    // EDITING 
+    // editTask(index) {
+    //   this.task = this.tasks[index].name;
+    //   this.editedTask = index; 
+    //   localStorage.setItem("tasks", JSON.stringify(this.tasks));
+    // },
+
+    // CHANGING STATUS
     changeStatus(index) {
       let newIndex = this.statuses.indexOf(this.tasks[index].status);
       if (++newIndex > 2) newIndex = 0;
@@ -166,6 +154,8 @@ input{
   border: none;
   background-color: transparent;
   color: white;
+  outline: none;
+
 }
 .Done {
   text-decoration: line-through;
@@ -176,5 +166,8 @@ input{
 
 table{
   width: 50%;
+}
+h2{
+  color: rgb(72, 222, 72);
 }
 </style>
